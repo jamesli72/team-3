@@ -5,3 +5,8 @@ var curURL = url.parse(
 
 console.log('address string : %s', curStr);
 console.dir(curURL);
+
+var querystring = require('querystring');
+var param = querystring.parse(curURL.query);
+console.log('query value in the query parameters : %s', param.query);
+console.log('original query parameter : %s', querystring.stringify(param));
