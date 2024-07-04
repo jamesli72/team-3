@@ -50,3 +50,21 @@ var logger = new (winston,Logger)({
         })
     ]
 });
+var fs = require('fs');
+
+var inname = './output.txt';
+var outname = './output2';
+
+fs.exists(outname, function (exists) {
+if ( exists) {
+    fs.unlink(outname, function (err) {
+        if (err) throw err;
+        logger.info(' Existing file [' + outname + '] Deleted.');
+   });
+}
+    var infile = fs.createReadStream(inname, {flags: 'r'} );
+    var outfile = fs.createReadStream(outname, {flags: 'w'} );
+
+    infile.pipe(outfile);
+    logger.info(' Copy file [' + inname + '] -> [' + outname + ']');
+});
